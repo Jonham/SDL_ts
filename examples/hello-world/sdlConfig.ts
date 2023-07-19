@@ -19,4 +19,5 @@ export const SDL_FUNCTIONS = [
   SDL.RestoreWindow,
   SDL.Quit,
   SDL.UpdateWindowSurface,
+  SDL.WaitEvent,
 ] as const;

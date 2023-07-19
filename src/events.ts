@@ -1,4 +1,5 @@
-import * as SDL from "../mod.SDL.ts";
+import { Event } from "./SDL/events.ts";
+import { GetError, WaitEvent } from "./SDL/functions.ts";
 
 export class Events {
   /**
@@ -11,24 +12,25 @@ export class Events {
    * }
    * ```
    */
-  public static asyncIterator(): AsyncIterator<SDL.Event, never, SDL.Event | undefined> {
-    let _event = new SDL.Event();
+  public static asyncIterator(): AsyncIterable<Event> {
     return {
-      next(event): Promise<IteratorResult<SDL.Event, never>> {
-        if (event) {
-          _event = event;
-        }
-        return new Promise<IteratorResult<SDL.Event, never>>((resolve, reject) => {
-          const res = SDL.WaitEvent(_event);
-          if (res == 0) {
-            reject(SDL.GetError());
-          } else {
-            resolve({
-              done: false,
-              value: _event,
+      [Symbol.asyncIterator](): AsyncIterator<Event> {
+        const event: Event = null!;
+        return {
+          next(): Promise<IteratorResult<Event, never>> {
+            return new Promise<IteratorResult<Event, never>>((resolve, reject) => {
+              const result = WaitEvent(event);
+              if (result === 0) {
+                reject(GetError());
+              } else {
+                resolve({
+                  done: false,
+                  value: event,
+                });
+              }
             });
-          }
-        });
+          },
+        };
       },
     };
   }
