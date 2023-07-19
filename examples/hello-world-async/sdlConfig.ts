@@ -4,19 +4,13 @@ import { SDL } from "SDL_ts";
 
 export const SDL_FUNCTIONS = [
   SDL.CreateWindow,
-  SDL.Delay,
   SDL.DestroyWindow,
   SDL.FillRect,
   SDL.GetError,
-  SDL.GetRevision,
-  SDL.GetSystemRAM,
-  SDL.GetVersion,
   SDL.GetWindowSurface,
   SDL.Init,
   SDL.MapRGB,
-  SDL.MinimizeWindow,
-  SDL.PollEvent,
-  SDL.RestoreWindow,
   SDL.Quit,
   SDL.UpdateWindowSurface,
+  SDL.WaitEvent,
 ] as const;
